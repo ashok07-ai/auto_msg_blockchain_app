@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useStateContext } from "../../Context";
 import { BiMenu } from "react-icons/bi";
 import { MdPaid } from "react-icons/md";
+import { Form } from "./index"
 
 const Chat = () => {
   // State Variables
@@ -47,6 +48,7 @@ const Chat = () => {
   }, []);
 
   const display = freeMembershipTrail?.replace(/['"]+/g, "");
+  console.log("inside", freeTrial)
   return (
     <div
       className="tab-pane fade show active"
@@ -59,7 +61,7 @@ const Chat = () => {
         {/* Navbar start */}
         <nav className="navbar navbar-expand-lg bg-light p-0">
           <button
-            className="navbar-toggler d-none"
+            className="navbar-toggler d-md-none d-block"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
@@ -135,7 +137,7 @@ const Chat = () => {
               <a href="#">{display}</a>
             ) : (
               <a className="del-btn" data-cursor="pointer" href="#">
-                Free Left (<span id="freeTry">{freeMembershipTrail | 0}</span>)
+                Usage (<span id="freeTry">{freeMembershipTrail || 0} </span> / 5)
               </a>
             )}
 
@@ -157,19 +159,19 @@ const Chat = () => {
             {hide ? (
               <div>
                 <img src="assets/svg/no-chat.svg" alt="img-fluid" />
-                <h3>{active === "Ask anything" ? "" : "Ask"}</h3>
+                <h3>{active == "Ask anything" ? "" : "Ask"} {active} chatbot</h3>
               </div>
             ) : (
               ""
             )}
           </div>
           <div className="" id="chat_container"></div>
-          {/* <Form
+          <Form
             close={close}
             proMember={proMember}
             address={address}
             freeMembershipTrail={freeMembershipTrail}
-          /> */}
+          />
         </div>
         {/* End of chat body */}
       </div>

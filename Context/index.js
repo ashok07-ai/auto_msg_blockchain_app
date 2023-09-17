@@ -18,8 +18,7 @@ export const StateContextProvider = ({ children }) => {
             // load data from localstorage
             const freeTrial = localStorage.getItem("freeTrial");
             const free_membership_trail = JSON.parse(freeTrial);
-            setFreeMembershipTrail(free_membership_trail);
-            console.log("frre", free_membership_trail)
+            setFreeMembershipTrail(freeTrial);
 
             // Get the contract data
             const contractDetails = await connectingWithContract();
@@ -78,8 +77,8 @@ export const StateContextProvider = ({ children }) => {
 
     // List of Memberships
     const membershipList = async () => {
-        const AMOUNT = 5;
-        const MEMBERSHIP_NAME = "One Year";
+        const AMOUNT = 3;
+        const MEMBERSHIP_NAME = "Six Months";
         const MEMBERSHIP_COST = ethers.utils.parseUnits(AMOUNT.toString(), "ether");
         const MEMBERSHIP_DATE = "September 13 2023";
 
