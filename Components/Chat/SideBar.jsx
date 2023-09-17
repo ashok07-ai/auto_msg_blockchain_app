@@ -148,7 +148,7 @@ const SideBar = () => {
                 className="btn btn-primary nav-link"
                 type="button"
                 data-bs-toggle="modal"
-                data-bs-target="#staticBackDrop"
+                data-bs-target="#staticBackdrop"
               >
                 <MdPaid className="icon-custom" />
                 <span>Upgrade</span>

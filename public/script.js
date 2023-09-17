@@ -1,6 +1,6 @@
 const form = document.querySelector("form");
 const chatContainer = document.querySelector("#chat_container");
-const free_trial_element = document.getElementById("freeTrial");
+const free_trial_element = document.getElementById("freeTry");
 const remove_element = document.getElementById("form_input_data");
 
 let loadInterval;
@@ -8,9 +8,9 @@ let loadInterval;
 function loader(element) {
     element.textContent = "";
     loadInterval = setInterval(() => {
-        element.textContent += "";
+        element.textContent += ".";
 
-        if (element.textContent === "...") {
+        if (element.textContent === "....") {
             element.textContent = "";
         }
     }, 300)
@@ -20,7 +20,7 @@ function typeText(element, text) {
     let index = 0;
     let interval = setInterval(() => {
         if (index < text.length) {
-            element.innerHTML = text.charAt(index);
+            element.innerHTML += text.charAt(index);
             index++;
         } else {
             clearInterval(interval)
@@ -37,7 +37,7 @@ function generateUniqueId() {
 
 function chatStripe(isAi, value, uniqueId) {
     return `
-       <div class="wrapper">
+       <div class="wrapper ${isAi && 'ai'}">
             <div class="chat">
                 <div class="profile">
                     <img src=${isAi ? "bot.svg" : "user.svg"} alt="${isAi ? "bot" : "user"}"/>
@@ -51,6 +51,7 @@ function chatStripe(isAi, value, uniqueId) {
 export const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData(form);
+    console.log(form);
 
     chatContainer.innerHTML += chatStripe(false, data.get("prompt"));
     form.reset();
@@ -75,10 +76,12 @@ export const handleSubmit = async (e) => {
 
     if (response.ok) {
         const data = await response.json();
-        const parsedData = data.bot.tirm();
+        const parsedData = data.bot;
+        console.log(parsedData)
 
         typeText(messageDiv, parsedData);
-        const freeTrial = localStorage.get("freeTrial");
+        const freeTrial = localStorage.getItem("freeTrial");
+        console.log("freetrial", JSON.parse(freeTrial))
         const FREE_TRIAL = JSON.parse(freeTrial);
 
         if (FREE_TRIAL == 1) {
@@ -115,7 +118,7 @@ export const handleSubmit = async (e) => {
     }
 }
 
-form.addEventListener("submit", handleSubmit());
+form.addEventListener("submit", handleSubmit);
 form.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
         handleSubmit(e)
